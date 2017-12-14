@@ -24,12 +24,7 @@ object Parser {
   private val newLine = P("\n")
 
   private val pos = (num ~ sep ~ num).map((Position.apply _).tupled)
-  private val orient = P("N" | "E" | "S" | "W").!.map {
-    case "N" => North
-    case "E" => East
-    case "S" => South
-    case "W" => West
-  }
+  private val orient = P("N" | "E" | "S" | "W").!.map(OrientationFormat.strToOrientation)
   private val instruction = P("A" | "G" | "D").!.map {
     case "A" => Advance
     case "G" => TurnLeft
